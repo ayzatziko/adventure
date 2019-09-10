@@ -3,6 +3,7 @@ package adventure
 import (
 	"fmt"
 	"io"
+	"log"
 
 	"github.com/ayzatziko/algos"
 )
@@ -36,4 +37,17 @@ func (adv *Adventure) Move(r io.Reader) error {
 
 func (adv *Adventure) IsExit() bool {
 	return adv.playerPos == adv.exitLoc
+}
+
+func (adv *Adventure) Run(r io.Reader) {
+	for {
+		if err := adv.Move(r); err != nil {
+			log.Println(err)
+		}
+
+		if adv.IsExit() {
+			fmt.Println("END")
+			break
+		}
+	}
 }
